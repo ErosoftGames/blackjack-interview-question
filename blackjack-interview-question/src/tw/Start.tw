@@ -1,0 +1,971 @@
+
+:: StoryData
+{
+    "ifid": "B792F1A3-729D-4722-9448-B0A050E839D1",
+    "format": "SugarCube",
+    "format-version": "2.0.0"
+}
+
+:: StoryTitle
+Blackjack vs. Erosoft
+
+
+:: Start [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    Blackjack Interview:
+                </b><br>
+                <p>
+                    Welcome to Blackjack vs. Erosoft!
+                    <br><br>
+                    Erosoft is a talented blackjack player from the faraway kingdom of America.<br>
+                    Can you beat him in a round of blackjack? Most would doubt it.<br>
+                    If you think you've got what it takes, draw a hand!
+                    <br><br>
+                    This game features <b>jokers</b>. Jokers are worth 0 points.<br>
+                    I could have made jokers a bit more interesting, I suppose.
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Deal" Deal>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Deal [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    These are your cards.
+                </b><br>
+                <p>
+                    /* We will first select a random number between 1 and 13.
+                    This will be our drawn value. 
+                    11 is Jack; 12 is Queen; 13 is King. 1 is, of course, Ace. */
+                
+                    <<set $drawnValueInt = random(1, 13)>>
+
+                    /* We will now select a random number between 0 and 3.
+                    This will be our drawn suit.
+                    0 is clubs; 1 is diamonds; 2 is hearts; 3 is spades. */
+
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    /* Now let's turn our suit integer into a proper string. */
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    /* We'll have to do the same with drawnValueInt in case of face cards. */
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    /* Finally, we can concatenate our drawnValue and drawnSuit
+                    values to pull a random image from the deck directory.
+                    
+                    NOTE: Some of the file names made this difficult, so I changed them.
+                    For example, jack_of_clubs2.png was changed to jack_of_clubs.png */
+                
+                    <<set $card1 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+                    [img[$card1]]
+
+                    /* Saving card 1 information. In raw form, so it's operable.
+                    All face card values will be converted to 10.*/
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card1value = $drawnValueInt>>
+                    <<set $card1suit = $drawnSuitInt>>
+
+                    /* We'll do the whole thing again for the second card.
+                    Sorry, I don't really know how to use functions in SugarCube. */
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card2 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    /* Check this out. I was thinking of a way to prevent the player from drawing
+                    the same card twice, but I instead decided to turn it into a feature.
+                    If the player draws the same card twice (1/52 chance), they will draw
+                    a joker in place of the repeated card. */
+                    <<if $card1 is $card2>>
+                    <<set $card2 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+
+                    [img[$card2]]
+
+                    /* Saving card 2 information. In raw form, so it's operable.
+                    All face card values will be converted to 10. */
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card2value = $drawnValueInt>>
+                    <<set $card2suit = $drawnSuitInt>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Hit" Hit1>><</button>>
+                <<button "Stay" Opponent>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Hit1 [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    These are your cards.
+                </b><br>
+                <p>
+                    /* Generating another card.
+                    Please refer to the Deal passage for more info.*/
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card3 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    /* Another joker generation section.
+                    This is gonna get messy real fast.
+                    Please enjoy my spaghetti code.*/
+                    <<if $card1 is $card2>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+
+                    [img[$card1]]
+                    [img[$card2]]
+                    [img[$card3]]
+
+                    /* Saving card 3 information. In raw form, so it's operable.
+                    All face card values will be converted to 10. */
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card3value = $drawnValueInt>>
+                    <<set $card3suit = $drawnSuitInt>>
+
+                    /* Bust condition */
+                    <<if $card1value + $card2value + $card3value > 21>>
+                    <<goto Bust>>
+                    <</if>>
+
+                    /* Blackjack condition */
+                    <<if $card1value + $card2value + $card3value is 21>>
+                    <<goto Blackjack>>
+                    <</if>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Hit" Hit2>><</button>>
+                <<button "Stay" Opponent>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Hit2 [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    These are your cards.
+                </b><br>
+                <p>
+                    /* Generating another card.
+                    Please refer to the Deal passage for more info.*/
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card4 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    /* Another joker generation section.
+                    This is gonna get messy real fast.
+                    Please enjoy my spaghetti code.*/
+                    <<if $card1 is $card2>>
+                    <<set $card2 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card3 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+
+                    [img[$card1]]
+                    [img[$card2]]
+                    [img[$card3]]
+                    [img[$card4]]
+
+                    /* Saving card 4 information. In raw form, so it's operable.
+                    All face card values will be converted to 10. */
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card4value = $drawnValueInt>>
+                    <<set $card4suit = $drawnSuitInt>>
+
+                    /* Bust condition */
+                    <<if $card1value + $card2value + $card3value + $card4value > 21>>
+                    <<goto Bust>>
+                    <</if>>
+
+                    /* Blackjack condition */
+                    <<if $card1value + $card2value + $card3value + $card4value is 21>>
+                    <<goto Blackjack>>
+                    <</if>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Stay" Opponent>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Bust [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    You busted!
+                </b><br>
+                <p>
+                    [img[$card1]]
+                    [img[$card2]]
+                    [img[$card3]]
+                    /* Does a fourth card exist? Don't show it if it doesn't! */
+                    <<if def $card4>>
+                    [img[$card4]]
+                    <</if>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Continue" Opponent>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Blackjack [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    Blackjack!
+                </b><br>
+                <p>
+                    [img[$card1]]
+                    [img[$card2]]
+                    [img[$card3]]
+                    /* Does a fourth card exist? Don't show it if it doesn't! */
+                    <<if def $card4>>
+                    [img[$card4]]
+                    <</if>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Continue" Opponent>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: Opponent [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    Erosoft's Turn. Erosoft is thinking...
+                </b><br>
+                <p>
+                    <<set $totalScore = 0>>
+                    /* Before we do anything else, let's calculate the player's score */
+                    /* This code determines whether an ace is 1 or 11 
+                    A card with value 1 is an ace.*/
+                    <<if $card1value is 1 and $totalScore < 12>>
+                    <<set $card1value = 11>>
+                    <</if>>
+                    <<if $card2value is 1 and $totalScore < 12>>
+                    <<set $card2value = 11>>
+                    <</if>>
+                    <<if $card3value is 1 and $totalScore < 12>>
+                    <<set $card3value = 11>>
+                    <</if>>
+                    <<if $card4value is 1 and $totalScore < 12>>
+                    <<set $card4value = 11>>
+                    <</if>>
+                    /* Okay, now to the actual score */
+                    <<set $totalScore = $card1value + $card2value>>
+                    /* Card 3 may or may not exist. Let's confirm. */
+                    <<if def $card3value>>
+                    <<set $totalScore += $card3value>>
+                    <</if>>
+                    /* Card 4 may or may not exist. Let's confirm. */
+                    <<if def $card4value>>
+                    <<set $totalScore += $card4value>>
+                    <</if>>
+
+                    /* Now let's clear the card image info */
+                    <<unset $card1>>
+                    <<unset $card2>>
+                    <<unset $card3>>
+                    <<unset $card4>>
+
+                    /* Generating Erosoft's first card. */
+                
+                    <<set $drawnValueInt = random(1, 13)>>
+
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+                
+                    <<set $card1 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card1value = $drawnValueInt>>
+                    <<set $card1suit = $drawnSuitInt>>
+
+                    /* Generating another card.
+                    Please refer to the Deal passage for more info.*/
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card2 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    <<if $card1 is $card2>>
+                    <<set $card2 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card2value = $drawnValueInt>>
+                    <<set $card2suit = $drawnSuitInt>>
+
+                    /* Erosoft will hit under 17 */
+                    <<if $card1value + $card2value < 17>>
+
+                    /* Generating another card.
+                    Please refer to the Deal passage for more info.*/
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card3 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    <<if $card1 is $card2>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card3value = $drawnValueInt>>
+                    <<set $card3suit = $drawnSuitInt>>
+                    <</if>>
+
+                    /* Erosoft will hit under 17 */
+                    <<if $card1value + $card2value + $card3value < 17>>
+
+                    /* Generating another card.
+                    Please refer to the Deal passage for more info.*/
+
+                    <<set $drawnValueInt = random(1, 13)>>
+                    <<set $drawnSuitInt = random(0, 3)>>
+
+                    <<if $drawnSuitInt is 0>>
+                    <<set $drawnSuit = "clubs">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 1>>
+                    <<set $drawnSuit = "diamonds">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 2>>
+                    <<set $drawnSuit = "hearts">>
+                    <</if>>
+
+                    <<if $drawnSuitInt is 3>>
+                    <<set $drawnSuit = "spades">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 1>>
+                    <<set $drawnValue = "ace">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 11>>
+                    <<set $drawnValue = "jack">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 12>>
+                    <<set $drawnValue = "queen">>
+                    <</if>>
+
+                    <<if $drawnValueInt is 13>>
+                    <<set $drawnValue = "king">>
+                    <</if>>
+
+                    <<if $drawnValueInt gt 1 and $drawnValueInt lt 11>>
+                    <<set $drawnValue = $drawnValueInt>>
+                    <</if>>
+
+                    <<set $card4 = "resources/images/deck/" + $drawnValue + "_of_" + $drawnSuit + ".png">>
+
+                    <<if $card1 is $card2>>
+                    <<set $card2 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card3>>
+                    <<set $card3 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card1 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card2 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    <<if $card3 is $card4>>
+                    <<set $card4 = "resources/images/deck/joker.png">>
+                    <<set $drawnValueInt = 0>>
+                    <<set $drawnSuitInt = 0>>
+                    <</if>>
+                    
+                    /* Saving card 4 information. In raw form, so it's operable.
+                    All face card values will be converted to 10. */
+                    <<if $drawnValueInt gt 10>>
+                    <<set $drawnValueInt = 10>>
+                    <</if>>
+                    <<set $card4value = $drawnValueInt>>
+                    <<set $card4suit = $drawnSuitInt>>
+                    <</if>>
+
+                    <<set $totalErosoftScore = $card1value + $card2value>>
+
+                    <<if def $card3>>
+                    <<set $totalErosoftScore += $card3value>>
+                    <</if>>
+
+                    <<if def $card4>>
+                    <<set $totalErosoftScore += $card4value>>
+                    <</if>>
+
+                    /* These cards will appear on the card in a
+                    staggered and timed fashion */
+
+                    [img[$card1]]
+                    [img[$card2]]
+
+                    <<timed 2s>>
+                    <<if def $card3>>
+                    [img[$card3]]
+                    <</if>>
+                    <</timed>>
+
+                    <<timed 3s>>
+                    <<if def $card4>>
+                    [img[$card4]]
+                    <</if>>
+                    <</timed>>
+
+                    <<timed 6s>>
+                    <<goto FinalTally>>
+                    <</timed>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
+
+
+:: FinalTally [black]
+<<nobr>>
+
+<div id="background" class="paper_border notext">
+    <div class="main container fourCol threeRow" style="height: 100%; width: 100%;">
+        <div class="subbackground mainLogContainer">
+             <div id="mainLogImageContainer" class="mainLogImageContainer">
+                <div id="mainLogImage" class="mainLogImage"></div>
+            </div>
+            <div id="mainLog" class="mainLog">
+                <b>
+                    Results
+                </b><br>
+                <p>
+                    You scored <b>$totalScore</b> points.
+                    Erosoft scored <b>$totalErosoftScore</b> points.
+
+                    <<if $totalScore > $totalErosoftScore and $totalScore <= 21 or $totalErosoftScore > 21>>
+                    <<set $endPhrase = "YOU WIN! Congratulations!">>
+                    <</if>>
+
+                    <<if $totalScore < $totalErosoftScore and $totalErosoftScore <= 21 or $totalScore > 21>>
+                    <<set $endPhrase = "YOU LOSE! Try again?">>
+                    <</if>>
+
+                    <<if $totalScore is $totalErosoftScore or $totalScore > 21 and $totalErosoftScore > 21>>
+                    <<set $endPhrase = "It's a draw! Try again?">>
+                    <</if>>
+
+                    <br>$endPhrase
+
+                    /* There's surely a better way to do this, but if the player wants to play again,
+                    then we'll need to reset all problematic variables to undefined. */
+                    <<unset $drawnValueInt>>
+                    <<unset $drawnSuitInt>>
+                    <<unset $card1>>
+                    <<unset $card2>>
+                    <<unset $card3>>
+                    <<unset $card4>>
+                    <<unset $card1value>>
+                    <<unset $card2value>>
+                    <<unset $card3value>>
+                    <<unset $card4value>>
+                    <<unset $totalScore>>
+                    <<unset $totalErosoftScore>>
+                </p>
+            </div>
+        </div>
+
+        <div id="info" class="subbackground" style="grid-row: 1 / span 3; grid-column: 4 / span 1">
+        </div>
+
+        <div id="action_bar" class="subbackground" style="grid-row: 3 / span 1; grid-column: 1 / span 3">
+            <div id="buttons" class="action container row col longbutton fiveQuarters" style="--rows: 4; --cols: 4">
+                <<button "Play Again" Start>><</button>>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<</nobr>>
